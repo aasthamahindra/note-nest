@@ -1,11 +1,16 @@
-require('dotenv').config();
+// disable all logs
+require('dotenv').config({ quiet: true });
+const { connectDB } = require('./utils/db');
+
 const fastify = require('fastify')({ logger: true });
 
-fastify.register(require('@fastify/cors'), {
+fastify.register(require('cors'), {
     origin: '*',
 });
 
-fastify.listen({ port: process.env.PORT || 5000, host: '0.0.0.0' }, async (err) => {
+connectDB(fastify, process.env.MONGODB_URI);
+
+fastify.listen({ port: process.env.PORT || 5000, host: '0.0.0.0' }, (err) => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);
