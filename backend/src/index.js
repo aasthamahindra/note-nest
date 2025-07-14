@@ -5,8 +5,10 @@ const { connectDB } = require('./utils/db');
 
 const fastify = require('fastify')({ logger: true });
 
-fastify.register(require('cors'), {
-    origin: '*',
+fastify.register(require('@fastify/cors'), {
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
 });
 
 fastify.register(require('@fastify/autoload'), {

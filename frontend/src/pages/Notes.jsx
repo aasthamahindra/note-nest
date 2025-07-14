@@ -7,8 +7,9 @@ const Notes = () => {
     const [notes, setNotes] = useState([]);
 
     const fetchNotes = async () => {
-        const res = await axios.get(`${import.meta.env.API_URL}`);
-        setNotes(res);
+        const res = await axios.get('http://localhost:5000');
+        console.log(res.data)
+        setNotes(res.data.data);
     };
 
     useEffect(() => {
