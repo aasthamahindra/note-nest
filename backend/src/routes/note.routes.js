@@ -4,5 +4,5 @@ module.exports = (fastify) => {
     fastify.get('/', getAllNotes);
     fastify.post('/', createNote);
     fastify.put('/:id', updateNote);
-    fastify.deleteNote('/:id', deleteNote);
+    fastify.delete('/:id', deleteNote);
 };

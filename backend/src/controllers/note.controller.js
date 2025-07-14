@@ -3,6 +3,12 @@ const { Notes } = require('../models/note.model');
 const getAllNotes = async (req, reply) => {
     try {
         const notes = await Notes.find().sort({ createdAt: -1 });
+        if (!notes.length) {
+            return reply.code(200).send({
+                message: 'No notes available!',
+                data: [],
+            });
+        }
         return reply.code(200).send({
             message: 'success',
             data: notes
@@ -19,7 +25,7 @@ const getAllNotes = async (req, reply) => {
 const createNote = async (req, reply) => {
     try {
         const note = req.body;
-        const newNote = (await Notes.create(note)).save();
+        const newNote = await Notes.create(note);
         return reply.code(201).send({
             message: 'success',
             data: newNote,
@@ -36,7 +42,7 @@ const createNote = async (req, reply) => {
 const updateNote = async (req, reply) => {
     try {
         const { id } = req.params;
-        const updatedNote = await Notes.findOneAndUpdate(id, req.body, {
+        const updatedNote = await Notes.findOneAndUpdate({ _id: new Object(id) }, req.body, {
             new: true,
         });
         return reply.code(200).send({
@@ -55,9 +61,9 @@ const updateNote = async (req, reply) => {
 const deleteNote = async (req, reply) => {
     try {
         const { id } = req.params;
-        const note = await Notes.fineOne({ _id: id });
+        const note = await Notes.findOne({ _id: new Object(id) });
         if (!note) {
-            return reply.code(e.statusCode || 500).send({
+            return reply.code(200).send({
                 message: 'Note not found!',
                 data: [],
             });
