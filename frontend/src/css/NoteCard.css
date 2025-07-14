@@ -1,0 +1,21 @@
+.note-card {
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+  }
+  .note-card h3 {
+    margin-top: 0;
+  }
+  .others { background: var(--others); }
+  .wishlist { background: var(--wishlist); }
+  .assignment { background: var(--assignment); }
+  .projects { background: var(--projects); }
+  .work { background: var(--work); }
+  .study { background: var(--study); }
+
+  .note-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 12px;
+  }
