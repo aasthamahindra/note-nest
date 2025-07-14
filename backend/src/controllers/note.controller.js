@@ -1,3 +1,4 @@
+const moment = require('moment');
 const { Notes } = require('../models/note.model');
 
 const getAllNotes = async (req, reply) => {
@@ -24,8 +25,14 @@ const getAllNotes = async (req, reply) => {
 
 const createNote = async (req, reply) => {
     try {
-        const note = req.body;
-        const newNote = await Notes.create(note);
+        const { title, content, category } = req.body;
+        const newNote = await Notes.create({
+            title,
+            content,
+            category,
+            time: moment.utc().format('hh:mm A'),
+            date: moment.utc().format('LL'),
+        });
         return reply.code(201).send({
             message: 'success',
             data: newNote,
