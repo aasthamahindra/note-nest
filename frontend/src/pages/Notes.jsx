@@ -30,7 +30,7 @@ const Notes = () => {
             />
             <main>
                 <div className="top-bar">
-                    <h1>All Notes</h1>
+                    <h1>{activeCategory} Notes</h1>
                     <button className="add-btn">Add New Note</button>
                 </div>
                 <div className="notes-grid">

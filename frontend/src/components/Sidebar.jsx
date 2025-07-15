@@ -5,7 +5,6 @@ const categories = [
     { name: 'All', color: 'all' },
     { name: 'Wishlist', color: 'wishlist' },
     { name: 'Assignment', color: 'assignment' },
-    { name: 'Projects', color: 'projects' },
     { name: 'Work', color: 'work' },
     { name: 'Study', color: 'study' },
     { name: 'Others', color: 'others' },
