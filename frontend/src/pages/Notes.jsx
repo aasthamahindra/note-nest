@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const Notes = () => {
     const [notes, setNotes] = useState([]);
-    const [activeCategory, setActiveCategory] = useState(null);
+    const [activeCategory, setActiveCategory] = useState('All');
 
     const fetchNotes = async () => {
         const res = await axios.get('http://localhost:5000');
@@ -16,9 +16,9 @@ const Notes = () => {
         fetchNotes();
     }, []);
 
-    const filteredNotes = activeCategory
-        ? notes.filter((note) => note.category === activeCategory)
-        : notes;
+    const filteredNotes = activeCategory === 'All' || !activeCategory
+        ? notes
+        : notes.filter((note) => note.category === activeCategory);
 
     return (
         <div className="app-container">

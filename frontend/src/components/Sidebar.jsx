@@ -2,6 +2,7 @@ import React from "react";
 import '../css/Sidebar.css';
 
 const categories = [
+    { name: 'All', color: 'all' },
     { name: 'Wishlist', color: 'wishlist' },
     { name: 'Assignment', color: 'assignment' },
     { name: 'Projects', color: 'projects' },

@@ -1,5 +1,5 @@
 .sidebar {
-    width: 220px;
+    width: 200px;
     height: 100vh;
     background: var(--sidebar);
     padding: 30px 20px;
@@ -40,7 +40,6 @@
 
   .category-item.active {
     font-weight: bold;
-    text-decoration: underline;
   }
 
   .others { background: var(--others); }
@@ -49,3 +48,4 @@
   .projects { background: var(--projects); }
   .work { background: var(--work); }
   .study { background: var(--study); }
+  .all { background: var(--all); }
