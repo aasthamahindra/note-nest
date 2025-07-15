@@ -5,23 +5,27 @@ const categories = [
     { name: 'Wishlist', color: 'wishlist' },
     { name: 'Assignment', color: 'assignment' },
     { name: 'Projects', color: 'projects' },
-    { name: 'Work', color: 'Work' },
+    { name: 'Work', color: 'work' },
     { name: 'Study', color: 'study' },
     { name: 'Others', color: 'others' },
 ];
 
-const Sidebar = () => (
-    <div className="sidebar">
+const Sidebar = ({ activeCategory, onCategorySelect }) => (
+    <aside className="sidebar">
         <h2>Aastha Mahindra</h2>
         <ul>
             {categories.map(({ name, color }) => (
-                <li key={name}>
+                <li
+                    key={name}
+                    onClick={() => onCategorySelect(name)}
+                    className={`category-item ${activeCategory === name ? 'active' : ''}`}
+                >
                     <span className={`dot ${color}`}/>
                     {name}
                 </li>
             ))}
         </ul>
-    </div>
+    </aside>
 );
 
 export default Sidebar;
