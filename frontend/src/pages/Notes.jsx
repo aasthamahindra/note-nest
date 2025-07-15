@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from '../components/Sidebar';
 import NoteCard from '../components/NoteCard';
+import AddNoteModal from "../components/AddNoteModal";
 import axios from 'axios';
 
 const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [activeCategory, setActiveCategory] = useState('All');
+    const [showModal, setShowModal] = useState(false);
 
     const fetchNotes = async () => {
         const res = await axios.get('http://localhost:5000');
@@ -25,13 +27,13 @@ const Notes = () => {
             <Sidebar
                 activeCategory={activeCategory}
                 onCategorySelect={(category) => {
-                    setActiveCategory(category === activeCategory ? null : category)
+                    setActiveCategory(category === activeCategory ? 'All' : category)
                 }}
             />
             <main>
                 <div className="top-bar">
                     <h1>{activeCategory} Notes</h1>
-                    <button className="add-btn">Add New Note</button>
+                    <button className="add-btn" onClick={() => setShowModal(true)}>+ Add New Note</button>
                 </div>
                 <div className="notes-grid">
                     {filteredNotes.length > 0 ? (
@@ -40,6 +42,15 @@ const Notes = () => {
                         <p style={{ color: 'gray', marginTop: '30px' }}> No notes found for this category!</p>
                     )}
                 </div>
+                {showModal && (
+                    <AddNoteModal
+                        onClose={() => setShowModal(false)}
+                        onNoteAdded={(newNote) => {
+                        setNotes((prev) => [newNote, ...prev]);
+                        setActiveCategory("All"); // optional
+                        }}
+                    />
+                )}
             </main>
         </div>
     );

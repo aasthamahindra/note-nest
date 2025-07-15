@@ -1,0 +1,83 @@
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .modal {
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 20px;
+    padding: 50px;
+    padding-right: 70px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .modal h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  form input,
+  form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: #2a2a2a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    transition: border 0.3s;
+    margin-top: 10px;
+  }
+
+  form select {
+    width: 108%;
+    padding: 10px 14px 12px 12px;
+    background-color: #2a2a2a;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    transition: border 0.3s;
+    margin-top: 10px;
+  }
+
+  form label.active input,
+  form label.active textarea,
+  form label.active select {
+    border-color: #18d2c4;
+    box-shadow: 0 0 5px #18d2c4;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #18d2c4;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .modal-buttons .cancel {
+    background-color: #555;
+  }

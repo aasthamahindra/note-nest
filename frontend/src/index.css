@@ -32,8 +32,8 @@ main {
 button.add-btn {
   background: var(--all);
   color: black;
-  padding: 10px 16px;
-  font-weight: 600;
+  padding: 15px 20px;
+  font-weight: 800;
   border: none;
   border-radius: 20px;
   cursor: pointer;
