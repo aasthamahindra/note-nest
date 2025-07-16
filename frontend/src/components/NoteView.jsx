@@ -8,12 +8,12 @@ const NoteViewModal = ({note, onClose}) => {
         <div className="modal-overlay">
             <div className="modal">
                 <h2>{note.title}</h2>
+                <p>{date} | {time}</p>
                 <div className={`modal-header`}>
                     <span className={`category-badge ${note.category.toLowerCase()}`}>
                         {note.category}
                     </span>
                 </div>
-                <p>{date} | {time}</p>
                 <hr style={{ opacity: 0.2 }} />
                 <p style={{ marginTop: '15px', lineHeight: '1.6' }}>{note.content}</p>
                 <div className="modal-buttons">
