@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/AddNoteModal.css';
 import axios from 'axios';
 
 const categories = ['Wishlist', 'Assignment', 'Work', 'Study', 'Others'];
 
-const AddNoteModal = ({ onClose, onNoteAdded }) => {
+const AddNoteModal = ({ onClose, onNoteAdded, initialData }) => {
+  const isEdit = !!initialData;
+
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -12,6 +14,16 @@ const AddNoteModal = ({ onClose, onNoteAdded }) => {
   });
 
   const [activeField, setActiveField] = useState(null);
+
+  useEffect(() => {
+    if (isEdit) {
+      setFormData({
+        title: initialData.title,
+        content: initialData.content,
+        category: initialData.category,
+      });
+    }
+  }, [initialData, isEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,18 +33,20 @@ const AddNoteModal = ({ onClose, onNoteAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000', formData);
+      const res = isEdit
+        ? await axios.put(`http://localhost:5000/${initialData._id}`, formData)
+        : await axios.post('http://localhost:5000', formData);
       onNoteAdded(res.data.data);
       onClose();
     } catch (error) {
-      console.error('Failed to add note:', error);
+      console.error(`${isEdit ? "Updating" : "Adding"} note failed:`, error);
     }
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>Add New Note</h2>
+        <h2>{isEdit ? 'Edit Note' : 'Add New Note'}</h2>
         <form onSubmit={handleSubmit}>
           <label className={activeField === 'title' ? 'active' : ''}>
             Title
@@ -44,6 +58,7 @@ const AddNoteModal = ({ onClose, onNoteAdded }) => {
               onBlur={() => setActiveField(null)}
               onChange={handleChange}
               required
+              disabled={isEdit}
             />
           </label>
 
@@ -78,7 +93,7 @@ const AddNoteModal = ({ onClose, onNoteAdded }) => {
           </label>
 
           <div className="modal-buttons">
-            <button type="submit">Add Note</button>
+            <button type="submit">{isEdit ? 'Update Note' : 'Add Note'}</button>
             <button type="button" onClick={onClose} className="cancel">Cancel</button>
           </div>
         </form>
