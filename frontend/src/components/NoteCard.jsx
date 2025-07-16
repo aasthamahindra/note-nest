@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from 'classnames';
 import '../css/NoteCard.css';
+import formatDateAndTime from "../utils/format";
 
 const NoteCard = ({ note, onEdit, onDelete, onView }) => {
     const category = note.category.toLowerCase();
@@ -9,12 +10,12 @@ const NoteCard = ({ note, onEdit, onDelete, onView }) => {
         if (e.target.closest('button')) return;
         onView(note);
     }
+    const { date, time } = formatDateAndTime(note.createdAt);
     return (
         <div className={classNames('note-card', category)} onClick={handleCardClick}>
             <h3>{note.title}</h3>
-            {/* <p>{note.content}</p> */}
             <div className="note-footer">
-                <span>{note.date} | {note.time}</span>
+                <span>{date} | {time}</span>
 
                 <div className="note-actions">
                 <button onClick={(e) => { e.stopPropagation(); onEdit(note); }}>Edit</button>

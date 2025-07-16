@@ -30,13 +30,17 @@ main {
   align-items: center;
 }
 button.add-btn {
-  background: var(--all);
-  color: black;
+  background: #af99ff;
+  color: white;
   padding: 15px 20px;
   font-weight: 800;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+}
+
+button.add-btn:hover {
+  background: var(--all);
 }
 .notes-grid {
   display: grid;

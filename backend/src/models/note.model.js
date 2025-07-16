@@ -8,8 +8,6 @@ const noteSchema = new Schema({
         enum: ['Wishlist', 'Assignment', 'Projects', 'Work', 'Study', 'Others'],
         required: true,
     },
-    time: { type: String, required: true },
-    date: { type: String, required: true },
 },
 { timestamps: true });
 

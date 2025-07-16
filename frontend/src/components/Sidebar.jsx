@@ -12,7 +12,8 @@ const categories = [
 
 const Sidebar = ({ activeCategory, onCategorySelect }) => (
     <aside className="sidebar">
-        <h2>Notes</h2>
+        <h2>Category</h2>
+        <hr style={{ opacity: 0.5 }} />
         <ul>
             {categories.map(({ name, color }) => (
                 <li

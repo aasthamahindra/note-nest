@@ -1,13 +1,19 @@
 import React from "react";
 import '../css/NoteViewModal.css';
+import formatDateAndTime from "../utils/format";
 
 const NoteViewModal = ({note, onClose}) => {
+    const { date, time } = formatDateAndTime(note.createdAt);
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <h2>{note.title}</h2>
-                <p><strong>Category:</strong> {note.category}</p>
-                <p><strong>Created on:</strong> {note.date} at {note.time}</p>
+                <div className="modal-header">
+                    <h2>{note.title}</h2>
+                    <span className={`category-badge ${note.category.toLowerCase()}`}>
+                        {note.category}
+                    </span>
+                </div>
+                <p>{date} | {time}</p>
                 <hr style={{ opacity: 0.2 }} />
                 <p style={{ marginTop: '15px', lineHeight: '1.6' }}>{note.content}</p>
                 <div className="modal-buttons">

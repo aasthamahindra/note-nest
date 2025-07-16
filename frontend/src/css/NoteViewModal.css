@@ -26,6 +26,23 @@
     font-size: 1.5rem;
   }
 
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .category-badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 999px;
+    color: white;
+    text-transform: capitalize;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  }
+
   form label {
     display: block;
     margin-bottom: 20px;

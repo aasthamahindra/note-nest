@@ -30,8 +30,6 @@ const createNote = async (req, reply) => {
             title,
             content,
             category,
-            time: moment.utc().format('hh:mm A'),
-            date: moment.utc().format('LL'),
         });
         return reply.code(201).send({
             message: 'success',
