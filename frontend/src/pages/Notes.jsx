@@ -8,6 +8,7 @@ const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [activeCategory, setActiveCategory] = useState('All');
     const [showModal, setShowModal] = useState(false);
+    const [editingNote, setEditingNote] = useState(null);
 
     const fetchNotes = async () => {
         const res = await axios.get('http://localhost:5000');
@@ -22,6 +23,41 @@ const Notes = () => {
         ? notes
         : notes.filter((note) => note.category === activeCategory);
 
+    const handleAddNewClick = () => {
+        setEditingNote(null);
+        setShowModal(true);
+    }
+
+    const handleNotSaved = (savedNote) => {
+        if (editingNote) {
+            setNotes((prev) =>
+                prev.map((n) => (n._id === savedNote._id ? savedNote : n))
+            );
+        } else {
+            setNotes((prev) => [savedNote, ...prev]);
+        }
+
+        setEditingNote(null);
+        setShowModal(false);
+    };
+
+    const handleEdit = (note) => {
+        setEditingNote(note);
+        setShowModal(true);
+    };
+
+    const handleDelete = async(id) => {
+        const confirmed = window.confirm('Are you sure you want to delete this note?');
+        if (!confirmed) return;
+
+        try {
+            await axios.delete(`http://localhost:5000/${id}`);
+            setNotes((prev) => prev.filter((n) => n._id !== id));
+        } catch (error) {
+            console.error(`Error deleting note: ${error}`)
+        }
+    };
+
     return (
         <div className="app-container">
             <Sidebar
@@ -33,22 +69,31 @@ const Notes = () => {
             <main>
                 <div className="top-bar">
                     <h1>{activeCategory} Notes</h1>
-                    <button className="add-btn" onClick={() => setShowModal(true)}>+ Add New Note</button>
+                    <button className="add-btn" onClick={handleAddNewClick}>+ Add New Note</button>
                 </div>
                 <div className="notes-grid">
                     {filteredNotes.length > 0 ? (
-                        filteredNotes.map((note) => <NoteCard key={note._id} note={note} />)
+                        filteredNotes.map((note) => (
+                            <NoteCard
+                                key={note._id}
+                                note={note}
+                                onEdit={handleEdit}
+                                onDelete={handleDelete}
+                            />
+                        ))
                     ): (
                         <p style={{ color: 'gray', marginTop: '30px' }}> No notes found for this category!</p>
                     )}
                 </div>
+
                 {showModal && (
                     <AddNoteModal
-                        onClose={() => setShowModal(false)}
-                        onNoteAdded={(newNote) => {
-                        setNotes((prev) => [newNote, ...prev]);
-                        setActiveCategory("All"); // optional
+                        onClose={() => {
+                            setEditingNote(null);
+                            setShowModal(false);
                         }}
+                        onNoteAdded={handleNotSaved}
+                        initialData={editingNote}
                     />
                 )}
             </main>

@@ -12,7 +12,7 @@ const categories = [
 
 const Sidebar = ({ activeCategory, onCategorySelect }) => (
     <aside className="sidebar">
-        <h2>Aastha Mahindra</h2>
+        <h2>Notes</h2>
         <ul>
             {categories.map(({ name, color }) => (
                 <li
