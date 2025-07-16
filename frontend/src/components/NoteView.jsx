@@ -7,8 +7,8 @@ const NoteViewModal = ({note, onClose}) => {
     return (
         <div className="modal-overlay">
             <div className="modal">
-                <div className="modal-header">
-                    <h2>{note.title}</h2>
+                <h2>{note.title}</h2>
+                <div className={`modal-header`}>
                     <span className={`category-badge ${note.category.toLowerCase()}`}>
                         {note.category}
                     </span>
