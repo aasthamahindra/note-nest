@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from '../components/Sidebar';
 import NoteCard from '../components/NoteCard';
 import AddNoteModal from "../components/AddNoteModal";
+import NoteViewModal from "../components/NoteView";
 import axios from 'axios';
 
 const Notes = () => {
@@ -9,6 +10,7 @@ const Notes = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [showModal, setShowModal] = useState(false);
     const [editingNote, setEditingNote] = useState(null);
+    const [viewingNote, setViewingNote] = useState(null);
 
     const fetchNotes = async () => {
         const res = await axios.get('http://localhost:5000');
@@ -25,6 +27,7 @@ const Notes = () => {
 
     const handleAddNewClick = () => {
         setEditingNote(null);
+        setViewingNote(null);
         setShowModal(true);
     }
 
@@ -43,6 +46,7 @@ const Notes = () => {
 
     const handleEdit = (note) => {
         setEditingNote(note);
+        setViewingNote(null);
         setShowModal(true);
     };
 
@@ -79,6 +83,7 @@ const Notes = () => {
                                 note={note}
                                 onEdit={handleEdit}
                                 onDelete={handleDelete}
+                                onView={(n) => setViewingNote(n)}
                             />
                         ))
                     ): (
@@ -91,9 +96,16 @@ const Notes = () => {
                         onClose={() => {
                             setEditingNote(null);
                             setShowModal(false);
+                            setViewingNote(null);
                         }}
                         onNoteAdded={handleNotSaved}
                         initialData={editingNote}
+                    />
+                )}
+                {viewingNote && (
+                    <NoteViewModal
+                        note={viewingNote}
+                        onClose={() => setViewingNote(null)}
                     />
                 )}
             </main>
