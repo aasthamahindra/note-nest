@@ -11,6 +11,21 @@ fastify.register(require('@fastify/cors'), {
     credentials: true,
 });
 
+fastify.register(require('@fastify/jwt'), {
+    secret: process.env.JWT_SECRET
+});
+
+fastify.decorate('authenticate', async (req, reply) => {
+    try {
+        await req.jwtVerify();
+    } catch (e) {
+        reply.code(401).send({
+            message: 'Unauthorized',
+            data: [],
+        });
+    }
+});
+
 fastify.register(require('@fastify/autoload'), {
     dir: path.join(__dirname, 'routes'),
     prefix: '/'
