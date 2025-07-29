@@ -10,4 +10,19 @@ const notes = {
     }
 };
 
-module.exports = { notes };
+const registerUser = {
+    body: {
+        type: 'object',
+        required: ['name', 'email', 'password'],
+        properties: {
+            name: { type: 'string' },
+            email: { type: 'string' },
+            password: { type: 'string'},
+        }
+    }
+};
+
+module.exports = {
+    notes,
+    registerUser,
+};
